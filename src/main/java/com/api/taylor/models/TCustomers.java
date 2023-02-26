@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 
 @Getter
 @Setter
+@AllArgsConstructor
 @Table(name = "customers")
 @Entity
 @DiscriminatorValue("customer")
@@ -18,7 +20,11 @@ public class TCustomers extends TUsers {
     public TCustomers() {
     }
 
-    public TCustomers(long id, String firstname, String lastname, String email, String tel, String password, Date birthdate, boolean taylor, boolean customer, boolean admin, String sexe) {
-        super(id, firstname, lastname, email, tel, password, birthdate, taylor, customer, admin, sexe);
-    }
+
+    /*jointure unidirectionnelle de  la classe TCustomers avec  la classe TDemandes
+    un client peut faire une ou plusieurs demandes*/
+    @OneToMany(targetEntity = TDemandes.class, cascade = CascadeType.ALL)
+    @JoinColumn (name = "customers_fk",referencedColumnName = "id")
+    private List<TDemandes> demandes;
+
 }

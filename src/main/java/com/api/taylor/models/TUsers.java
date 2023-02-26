@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 
 @Getter
@@ -54,4 +55,10 @@ public class TUsers implements Serializable {
     protected  String sexe;
 
 
+
+    /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
+   un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
+    @OneToMany(targetEntity = TMessages.class, cascade = CascadeType.ALL)
+    @JoinColumn (name = "users_fk",referencedColumnName = "id")
+    private List<TMessages> messages;
 }

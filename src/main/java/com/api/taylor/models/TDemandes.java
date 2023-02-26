@@ -8,6 +8,8 @@ import lombok.Setter;
 
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,8 +23,8 @@ public class TDemandes implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
-    @Column(name = "dateDmd", columnDefinition = "datetime")
-    private String dateDmd;
+    @Column(name = "dateDmd", columnDefinition = "timestamp")
+    private Date dateDmd;
 
     private String object;
 
@@ -32,5 +34,11 @@ public class TDemandes implements Serializable {
 
     private TUsers receiver;
 
+
+    /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TImages
+    une demande peut avoir une ou plusieurs images*/
+    @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
+    @JoinColumn (name = "demandes_fk",referencedColumnName = "id")
+    private List<TImages> images;
 
 }

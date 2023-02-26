@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +26,13 @@ public class TCompetencies implements Serializable {
 
     @Column(name ="description", length = 2000)
     private String description;
+
+
+    /*jointure unidirectionnelle de  la classe TCompetences avec  la classe TImages
+    Dans une competence on peut avoir une ou plusieurs images*/
+    @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
+    @JoinColumn (name = "competencies_fk",referencedColumnName = "id")
+    private List<TImages> images;
 
 
 }

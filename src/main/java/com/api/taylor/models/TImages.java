@@ -1,8 +1,10 @@
 package com.api.taylor.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -12,17 +14,11 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "messages")
-
-public class TMessages implements Serializable {
+@Table(name = "images")
+public class TImages implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
-    @Column(name = "dateMsg", columnDefinition = "timestamp")
-    private Date dateMsg;
-
-    private TUsers sender;
-
-    private TUsers receiver;
+    private String link;
 }
