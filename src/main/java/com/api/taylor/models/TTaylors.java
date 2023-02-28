@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -50,5 +52,18 @@ public class TTaylors extends TUsers {
     @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "taylor_fk",referencedColumnName = "id")
     private List<TImages> images;
+
+
+   /*jointure bidirectionnelle de  la classe TTaylors avec  la classe TCompetencies
+       un tailleur peut avoir une ou plusieurs competences et une competences peut appartenir
+         à un ou plusieurs tailleurs */
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "taylors-competencies",
+            joinColumns = @JoinColumn(name = "taylors_id"),
+            inverseJoinColumns = @JoinColumn(name = "competencies_id")
+    )
+    private Set<TCompetencies> competencies = new HashSet<>();
 
 }

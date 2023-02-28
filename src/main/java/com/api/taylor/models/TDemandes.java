@@ -28,6 +28,7 @@ public class TDemandes implements Serializable {
 
     private String object;
 
+    @Column(name = "content", columnDefinition = "text")
     private String content;
 
     private  TUsers sender;

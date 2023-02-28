@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,7 +26,7 @@ public class TCompetencies implements Serializable {
     @Column(name ="title", length = 60)
     private String title;
 
-    @Column(name ="description", length = 2000)
+    @Column(name ="description", columnDefinition = "text")
     private String description;
 
 
@@ -33,6 +35,13 @@ public class TCompetencies implements Serializable {
     @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "competencies_fk",referencedColumnName = "id")
     private List<TImages> images;
+
+
+    /*jointure bidirectionnelle de  la classe TTaylors avec  la classe TCompetencies
+       un tailleur peut avoir une ou plusieurs competences et une competences peut appartenir
+         à un ou plusieurs tailleurs */
+    @ManyToMany(mappedBy = "competencies")
+    private Set<TTaylors> taylors = new HashSet<>();
 
 
 }
