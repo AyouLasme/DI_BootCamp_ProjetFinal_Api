@@ -16,7 +16,7 @@ import java.sql.Date;
 
 public class TMessages implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     @Column(name = "dateMsg", columnDefinition = "timestamp")

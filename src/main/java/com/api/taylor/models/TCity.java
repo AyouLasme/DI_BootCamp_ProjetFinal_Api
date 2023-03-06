@@ -19,7 +19,7 @@ import java.util.List;
 public class TCity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long id;
 
@@ -30,4 +30,9 @@ public class TCity {
     @OneToMany(targetEntity = TUsers.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "city_fk",referencedColumnName = "id")
     private List<TUsers> users;
+
+
+    @ManyToOne()
+    @JoinColumn (name = "town_fk",referencedColumnName = "id")
+    private TTown town;
 }

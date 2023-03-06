@@ -20,7 +20,7 @@ import java.util.List;
 
 public class TDemandes implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     @Column(name = "dateDmd", columnDefinition = "timestamp")

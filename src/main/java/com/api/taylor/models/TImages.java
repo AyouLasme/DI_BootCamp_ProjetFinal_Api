@@ -17,7 +17,7 @@ import java.sql.Date;
 @Table(name = "images")
 public class TImages implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     private String link;

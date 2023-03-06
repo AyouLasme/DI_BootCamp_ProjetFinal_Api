@@ -21,7 +21,7 @@ import java.util.List;
 @DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
 public class TUsers implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     @Column(name = "firstname", length = 60 )

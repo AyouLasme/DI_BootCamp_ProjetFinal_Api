@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class TCompetencies implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     @Column(name ="title", length = 60)
