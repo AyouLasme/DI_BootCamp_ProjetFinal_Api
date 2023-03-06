@@ -39,7 +39,7 @@ public class TDemandes implements Serializable {
     /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TImages
     une demande peut avoir une ou plusieurs images*/
     @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "demandes_fk",referencedColumnName = "id")
+    @JoinColumn (name = "demande_fk",referencedColumnName = "id")
     private List<TImages> images;
 
 }

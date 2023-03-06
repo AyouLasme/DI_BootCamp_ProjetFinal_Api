@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/users")
 public class CUsers {
@@ -39,7 +39,8 @@ public class CUsers {
 
 
     @PostMapping("login")
-    public ResponseEntity<TUsers> login(@Validated TLoginPayLoad loginPayLoad) {
+    public ResponseEntity<TUsers> login(@RequestBody @Validated TLoginPayLoad loginPayLoad) {
+        System.out.println(loginPayLoad);
         Optional<TUsers> users = rUsers.findByEmailAndPassword(loginPayLoad.getEmail(), loginPayLoad.getPassword());
 
         if(users.isPresent()) {

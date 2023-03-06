@@ -24,7 +24,7 @@ public class TCustomers extends TUsers {
     /*jointure unidirectionnelle de  la classe TCustomers avec  la classe TDemandes
     un client peut faire une ou plusieurs demandes*/
     @OneToMany(targetEntity = TDemandes.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "customers_fk",referencedColumnName = "id")
+    @JoinColumn (name = "customer_fk",referencedColumnName = "id")
     private List<TDemandes> demandes;
 
 }

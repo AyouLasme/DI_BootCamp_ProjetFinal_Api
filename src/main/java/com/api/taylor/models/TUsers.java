@@ -59,6 +59,6 @@ public class TUsers implements Serializable {
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
    un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
     @OneToMany(targetEntity = TMessages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "users_fk",referencedColumnName = "id")
+    @JoinColumn (name = "user_fk",referencedColumnName = "id")
     private List<TMessages> messages;
 }

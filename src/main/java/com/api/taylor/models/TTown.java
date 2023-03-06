@@ -24,6 +24,6 @@ public class TTown {
     /*jointure unidirectionnelle de  la classe TTown avec  la classe TCity
     une ville peut avoir une ou plusieurs communes*/
     @OneToMany(targetEntity = TCity.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "city_fk",referencedColumnName = "id")
+    @JoinColumn (name = "town_fk",referencedColumnName = "id")
     private List<TCity> cities;
 }

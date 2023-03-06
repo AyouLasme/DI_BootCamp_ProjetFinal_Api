@@ -43,14 +43,14 @@ public class TTaylors extends TUsers {
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
        un tailleur peut avoir une ou plusieurs demandes*/
     @OneToMany(targetEntity = TDemandes.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "taylor_fk",referencedColumnName = "id")
+    @JoinColumn (name = "demande_fk",referencedColumnName = "id")
     private List<TDemandes> demandes;
 
 
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TImages
        un tailleur peut avoir une ou plusieurs images dans ses realisations*/
     @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "taylor_fk",referencedColumnName = "id")
+    @JoinColumn (name = "image_fk",referencedColumnName = "id")
     private List<TImages> images;
 
 
