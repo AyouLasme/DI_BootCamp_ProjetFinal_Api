@@ -1,5 +1,6 @@
 package com.api.taylor.controllers;
 
+import com.api.taylor.models.TLoginPayLoad;
 import com.api.taylor.models.TUsers;
 import com.api.taylor.repository.RUsers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/users")
 public class CUsers {
@@ -35,9 +37,27 @@ public class CUsers {
         }
     }
 
+
+    @PostMapping("login")
+    public ResponseEntity<TUsers> login(@Validated TLoginPayLoad loginPayLoad) {
+        Optional<TUsers> users = rUsers.findByEmailAndPassword(loginPayLoad.getEmail(), loginPayLoad.getPassword());
+
+        if(users.isPresent()) {
+            return ResponseEntity.ok().body(users.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping()
-    public TUsers save(@Validated @RequestBody TUsers tUser) {
-        return rUsers.save(tUser);
+    public String save(@Validated @RequestBody TUsers tUser) {
+        try {
+            rUsers.save(tUser);
+            return "ok";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
 
