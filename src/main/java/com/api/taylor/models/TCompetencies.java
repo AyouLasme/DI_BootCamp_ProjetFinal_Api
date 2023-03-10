@@ -26,8 +26,6 @@ public class TCompetencies implements Serializable {
     @Column(name ="title", length = 60)
     private String title;
 
-    @Column(name ="description", columnDefinition = "text")
-    private String description;
 
 
     /*jointure unidirectionnelle de  la classe TCompetences avec  la classe TImages

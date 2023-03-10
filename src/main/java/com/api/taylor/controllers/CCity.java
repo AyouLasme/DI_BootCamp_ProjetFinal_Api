@@ -53,4 +53,6 @@ public class CCity {
     public void delete(@Validated @RequestBody TCity city){
         rCity.deleteById(city.getId());
     }
+
+
 }

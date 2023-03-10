@@ -39,20 +39,25 @@ public class TUsers implements Serializable {
     @Column(name = "password", length = 10 )
     protected  String password;
 
+    @Column(name = "adresse", length = 20 )
+    protected String adresse;
 
-    protected Date birthdate;
+    @Column(name = "role", length = 10)
+    protected String role = "";
 
-    @Column(name = "taylor", nullable = false, columnDefinition = "boolean default false")
-    protected boolean taylor = false;
-
-    @Column(name = "customer", nullable = false, columnDefinition = "boolean default false")
-    protected boolean customer = false;
 
     @Column(name = "admin", nullable = false, columnDefinition = "boolean default false")
     protected boolean admin = false;
 
-    @Column(name = "sexe", length = 1)
+    @Column(name = "sexe", length = 10)
     protected  String sexe;
+
+    //@ManyToOne()
+    //@JoinColumn(name="city_id",nullable = false)
+    //protected TCity city;
+
+
+
 
 
 

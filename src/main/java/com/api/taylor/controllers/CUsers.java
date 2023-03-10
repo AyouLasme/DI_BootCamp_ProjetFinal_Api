@@ -1,7 +1,6 @@
 package com.api.taylor.controllers;
 
-import com.api.taylor.models.TLoginPayLoad;
-import com.api.taylor.models.TUsers;
+import com.api.taylor.models.*;
 import com.api.taylor.repository.RUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -49,6 +49,26 @@ public class CUsers {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    @PostMapping("register")
+    public ResponseEntity<TUsers> register(@RequestBody @Validated TRegisterPayLoad registerPayLoad) {
+        System.out.println(registerPayLoad);
+        TUsers user = new TUsers();
+        user.setLastname(registerPayLoad.getLastname());
+        user.setFirstname(registerPayLoad.getFirstname());
+        user.setEmail(registerPayLoad.getEmail());
+        user.setAdresse(registerPayLoad.getAdresse());
+        user.setTel(registerPayLoad.getTel());
+        user.setSexe(registerPayLoad.getSexe());
+        user.setRole(registerPayLoad.getRole());
+
+        rUsers.save(user);
+
+        return ResponseEntity.ok().body(user);
+    }
+
+
 
     @PostMapping()
     public String save(@Validated @RequestBody TUsers tUser) {

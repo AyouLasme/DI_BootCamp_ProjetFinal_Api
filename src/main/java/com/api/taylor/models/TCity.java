@@ -27,9 +27,9 @@ public class TCity {
 
     /*jointure unidirectionnelle de  la classe TCity avec  la classe TUser
     une commune peut contenir un ou plusieurs utilisateurs*/
-    @OneToMany(targetEntity = TUsers.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "city_fk",referencedColumnName = "id")
-    private List<TUsers> users;
+    //@OneToMany(targetEntity = TUsers.class, cascade = CascadeType.ALL)
+   // @JoinColumn (name = "city_fk",referencedColumnName = "id")
+    //private List<TUsers> users;
 
 
     @ManyToOne()

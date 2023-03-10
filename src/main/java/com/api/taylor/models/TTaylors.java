@@ -32,16 +32,27 @@ public class TTaylors extends TUsers {
         super();
     }
 
-    public TTaylors(long id, String firstname, String lastname, String email, String tel, String password, Date birthdate, boolean taylor, boolean customer, boolean admin, String sexe, List<TMessages> messages, String category, String galery, boolean isAvailable) {
-        super(id, firstname, lastname, email, tel, password, birthdate, taylor, customer, admin, sexe, messages);
+    public TTaylors(long id, String firstname, String lastname, String email, String tel, String password, String adresse, String role, boolean admin, String sexe, List<TMessages> messages, String category, String galery, boolean isAvailable, List<TDemandes> demandes, List<TImages> images, Set<TCompetencies> competencies) {
+        super(id, firstname, lastname, email, tel, password, adresse, role, admin, sexe, messages);
         this.category = category;
         this.galery = galery;
         this.isAvailable = isAvailable;
+        this.demandes = demandes;
+        this.images = images;
+        this.competencies = competencies;
     }
 
+    public TTaylors(String category, String galery, boolean isAvailable, List<TDemandes> demandes, List<TImages> images, Set<TCompetencies> competencies) {
+        this.category = category;
+        this.galery = galery;
+        this.isAvailable = isAvailable;
+        this.demandes = demandes;
+        this.images = images;
+        this.competencies = competencies;
+    }
 
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
-       un tailleur peut avoir une ou plusieurs demandes*/
+           un tailleur peut avoir une ou plusieurs demandes*/
     @OneToMany(targetEntity = TDemandes.class, cascade = CascadeType.ALL)
     @JoinColumn (name = "demande_fk",referencedColumnName = "id")
     private List<TDemandes> demandes;
