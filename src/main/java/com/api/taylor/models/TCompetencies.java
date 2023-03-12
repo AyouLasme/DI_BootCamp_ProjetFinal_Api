@@ -28,18 +28,11 @@ public class TCompetencies implements Serializable {
 
 
 
-    /*jointure unidirectionnelle de  la classe TCompetences avec  la classe TImages
-    Dans une competence on peut avoir une ou plusieurs images*/
-    @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "competence_fk",referencedColumnName = "id")
-    private List<TImages> images;
-
-
     /*jointure bidirectionnelle de  la classe TTaylors avec  la classe TCompetencies
        un tailleur peut avoir une ou plusieurs competences et une competences peut appartenir
          à un ou plusieurs tailleurs */
     @ManyToMany(mappedBy = "competencies")
-    private Set<TTaylors> taylors = new HashSet<>();
+    private List<TTaylors> taylors;
 
 
 }

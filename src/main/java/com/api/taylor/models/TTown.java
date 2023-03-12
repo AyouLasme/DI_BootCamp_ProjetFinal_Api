@@ -24,6 +24,6 @@ public class TTown implements Serializable {
 
     /*jointure unidirectionnelle de  la classe TTown avec  la classe TCity
     une ville peut avoir une ou plusieurs communes*/
-//    @OneToMany(mappedBy = "town", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<TCity> cities;
+  // @OneToMany(mappedBy = "town", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   // private List<TCity> cities;
 }

@@ -1,5 +1,6 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,16 @@ public class TMessages implements Serializable {
     @Column(name = "dateMsg", columnDefinition = "timestamp")
     private Date dateMsg;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn(name = "reveiver_fk", referencedColumnName = "id")
     private TUsers sender;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn(name = "sender_fk", referencedColumnName = "id")
     private TUsers receiver;
+
+
+
 }

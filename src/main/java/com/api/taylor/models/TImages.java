@@ -1,5 +1,6 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,4 +22,14 @@ public class TImages implements Serializable {
     protected long id;
 
     private String link;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn (name = "demande_fk",referencedColumnName = "id")
+    private TDemandes demande;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn (name = "user_fk",referencedColumnName = "id")
+    private TUsers user;
 }

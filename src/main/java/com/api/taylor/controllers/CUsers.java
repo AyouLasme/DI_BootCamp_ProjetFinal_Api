@@ -62,6 +62,7 @@ public class CUsers {
         user.setTel(registerPayLoad.getTel());
         user.setSexe(registerPayLoad.getSexe());
         user.setRole(registerPayLoad.getRole());
+        user.setPassword(registerPayLoad.getPassword());
 
         rUsers.save(user);
 

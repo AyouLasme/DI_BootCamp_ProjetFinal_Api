@@ -1,5 +1,6 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,18 +53,39 @@ public class TUsers implements Serializable {
     @Column(name = "sexe", length = 10)
     protected  String sexe;
 
-    //@ManyToOne()
-    //@JoinColumn(name="city_id",nullable = false)
-    //protected TCity city;
 
 
-
+    // Relation unidirectionnelle entre TUsers et TMunicipality
+    // un utilisateur peut appartenir a une et une seule commune
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn (name = "municipality_fk",referencedColumnName = "id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected TMunicipality municipality;
 
 
 
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
    un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
-    @OneToMany(targetEntity = TMessages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "user_fk",referencedColumnName = "id")
-    private List<TMessages> messages;
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<TMessages> receivedMessages;
+
+
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private List<TMessages> sentMessages;
+
+
+    /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
+   un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<TDemandes> receivedDemandes;
+
+
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private List<TDemandes> sentDemandes;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<TImages> images;
 }

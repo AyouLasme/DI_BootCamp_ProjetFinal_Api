@@ -15,6 +15,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "taylors")
 @DiscriminatorValue("taylor")
 
@@ -28,28 +30,8 @@ public class TTaylors extends TUsers {
 
     private boolean isAvailable;
 
-    public TTaylors() {
-        super();
-    }
 
-    public TTaylors(long id, String firstname, String lastname, String email, String tel, String password, String adresse, String role, boolean admin, String sexe, List<TMessages> messages, String category, String galery, boolean isAvailable, List<TDemandes> demandes, List<TImages> images, Set<TCompetencies> competencies) {
-        super(id, firstname, lastname, email, tel, password, adresse, role, admin, sexe, messages);
-        this.category = category;
-        this.galery = galery;
-        this.isAvailable = isAvailable;
-        this.demandes = demandes;
-        this.images = images;
-        this.competencies = competencies;
-    }
 
-    public TTaylors(String category, String galery, boolean isAvailable, List<TDemandes> demandes, List<TImages> images, Set<TCompetencies> competencies) {
-        this.category = category;
-        this.galery = galery;
-        this.isAvailable = isAvailable;
-        this.demandes = demandes;
-        this.images = images;
-        this.competencies = competencies;
-    }
 
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
            un tailleur peut avoir une ou plusieurs demandes*/

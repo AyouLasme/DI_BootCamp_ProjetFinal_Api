@@ -1,5 +1,6 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,15 +32,20 @@ public class TDemandes implements Serializable {
     @Column(name = "content", columnDefinition = "text")
     private String content;
 
-    private  TUsers sender;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn(name = "sender_fk", referencedColumnName = "id")
+    private TUsers sender;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn(name = "reveiver_fk", referencedColumnName = "id")
     private TUsers receiver;
 
 
     /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TImages
     une demande peut avoir une ou plusieurs images*/
-    @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "demande_fk",referencedColumnName = "id")
+    @OneToMany(mappedBy = "demande", cascade = CascadeType.ALL)
     private List<TImages> images;
 
 }

@@ -20,19 +20,14 @@ public class TCity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private long id;
 
     private String libelle;
 
-    /*jointure unidirectionnelle de  la classe TCity avec  la classe TUser
-    une commune peut contenir un ou plusieurs utilisateurs*/
-    //@OneToMany(targetEntity = TUsers.class, cascade = CascadeType.ALL)
-   // @JoinColumn (name = "city_fk",referencedColumnName = "id")
-    //private List<TUsers> users;
 
 
-    @ManyToOne()
-    @JoinColumn (name = "town_fk",referencedColumnName = "id")
-    private TTown town;
+   /*jointure unidirectionnelle de  la classe TCity avec  la classe TMunicipality
+    une ville peut avoir une ou plusieurs communes*/
+     @OneToMany(mappedBy = "city", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+     private List<TMunicipality> municipalities;
 }
