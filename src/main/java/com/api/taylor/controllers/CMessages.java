@@ -43,12 +43,12 @@ public class CMessages {
     }
 
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TMessages> update(@Validated @RequestBody TMessages messages){
         return new ResponseEntity<>(rMessages.save(messages), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @DeleteMapping()
     public void delete(@Validated @RequestBody TMessages messages) {
         rMessages.deleteById(messages.getId());
     }

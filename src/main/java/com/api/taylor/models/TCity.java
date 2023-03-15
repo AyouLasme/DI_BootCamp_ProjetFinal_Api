@@ -1,6 +1,9 @@
 package com.api.taylor.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "cities")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TCity {
 
     @Id
@@ -28,6 +32,7 @@ public class TCity {
 
    /*jointure unidirectionnelle de  la classe TCity avec  la classe TMunicipality
     une ville peut avoir une ou plusieurs communes*/
-     @OneToMany(mappedBy = "city", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+     @JsonIdentityReference(alwaysAsId = true)
      private List<TMunicipality> municipalities;
 }

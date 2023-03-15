@@ -1,9 +1,7 @@
 package com.api.taylor.controllers;
 
 import com.api.taylor.models.TMunicipality;
-import com.api.taylor.models.TTown;
 import com.api.taylor.repository.RMunicipality;
-import com.api.taylor.repository.RTown;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +41,12 @@ public class CMunicipality {
     }
 
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TMunicipality> update(@Validated @RequestBody TMunicipality municipality){
         return new ResponseEntity<>(rMunicipality.save(municipality), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+   @DeleteMapping()
     public void delete(@Validated @RequestBody TMunicipality municipality){
         rMunicipality.deleteById(municipality.getId());
     }

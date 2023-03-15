@@ -1,5 +1,7 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,19 +14,14 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Table(name = "customers")
 @Entity
 @DiscriminatorValue("customer")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TCustomers extends TUsers {
     public TCustomers() {
     }
 
 
-    /*jointure unidirectionnelle de  la classe TCustomers avec  la classe TDemandes
-    un client peut faire une ou plusieurs demandes*/
-    @OneToMany(targetEntity = TDemandes.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "customer_fk",referencedColumnName = "id")
-    private List<TDemandes> demandes;
 
 }

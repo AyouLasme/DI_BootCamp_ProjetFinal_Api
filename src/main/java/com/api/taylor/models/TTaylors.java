@@ -1,5 +1,7 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "taylors")
 @DiscriminatorValue("taylor")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class TTaylors extends TUsers {
 
@@ -29,34 +32,9 @@ public class TTaylors extends TUsers {
     private String galery;
 
     private boolean isAvailable;
+    
 
 
 
-
-    /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
-           un tailleur peut avoir une ou plusieurs demandes*/
-    @OneToMany(targetEntity = TDemandes.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "demande_fk",referencedColumnName = "id")
-    private List<TDemandes> demandes;
-
-
-    /*jointure unidirectionnelle de  la classe TUsers avec  la classe TImages
-       un tailleur peut avoir une ou plusieurs images dans ses realisations*/
-    @OneToMany(targetEntity = TImages.class, cascade = CascadeType.ALL)
-    @JoinColumn (name = "image_fk",referencedColumnName = "id")
-    private List<TImages> images;
-
-
-   /*jointure bidirectionnelle de  la classe TTaylors avec  la classe TCompetencies
-       un tailleur peut avoir une ou plusieurs competences et une competences peut appartenir
-         à un ou plusieurs tailleurs */
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "taylors-competencies",
-            joinColumns = @JoinColumn(name = "taylors_id"),
-            inverseJoinColumns = @JoinColumn(name = "competencies_id")
-    )
-    private Set<TCompetencies> competencies = new HashSet<>();
 
 }

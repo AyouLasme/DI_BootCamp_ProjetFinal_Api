@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/customers")
 public class CCustomers {
@@ -41,12 +42,12 @@ public class CCustomers {
     }
 
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TCustomers> update(@Validated @RequestBody TCustomers customers){
         return new ResponseEntity<>(rCostomers.save(customers), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+   @DeleteMapping()
     public void delete(@Validated @RequestBody TCustomers customers){
         rCostomers.deleteById(customers.getId());
     }

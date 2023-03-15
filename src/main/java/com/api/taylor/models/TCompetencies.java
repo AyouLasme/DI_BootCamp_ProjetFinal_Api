@@ -1,5 +1,8 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "competencies")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TCompetencies implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +34,11 @@ public class TCompetencies implements Serializable {
     /*jointure bidirectionnelle de  la classe TTaylors avec  la classe TCompetencies
        un tailleur peut avoir une ou plusieurs competences et une competences peut appartenir
          à un ou plusieurs tailleurs */
-    @ManyToMany(mappedBy = "competencies")
-    private List<TTaylors> taylors;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "competencies_users",
+            joinColumns = @JoinColumn( name = "competency_fk" ),
+            inverseJoinColumns = @JoinColumn( name = "user_fk" ) )
+    private List<TUsers> taylors;
 
 
 }

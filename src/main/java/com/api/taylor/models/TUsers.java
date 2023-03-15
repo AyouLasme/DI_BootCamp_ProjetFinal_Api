@@ -1,6 +1,9 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +23,7 @@ import java.util.List;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TUsers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,9 +61,10 @@ public class TUsers implements Serializable {
 
     // Relation unidirectionnelle entre TUsers et TMunicipality
     // un utilisateur peut appartenir a une et une seule commune
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "municipality_fk",referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIdentityReference(alwaysAsId = true)
     protected TMunicipality municipality;
 
 
@@ -67,25 +72,44 @@ public class TUsers implements Serializable {
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
    un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<TMessages> receivedMessages;
 
 
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<TMessages> sentMessages;
 
 
     /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
    un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    private List<TDemandes> receivedDemandes;
+//    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+//    @JsonIdentityReference(alwaysAsId = true)
+//    private List<TDemandes> receivedDemandes;
 
 
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<TDemandes> sentDemandes;
 
 
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    @JsonIdentityReference(alwaysAsId = true)
+//    private List<TImages> images;
+
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "competencies_users",
+            joinColumns = @JoinColumn( name = "user_fk" ),
+            inverseJoinColumns = @JoinColumn( name = "competency_fk" ) )
+    private List<TCompetencies> competencies;
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<TImages> images;
+    @JsonIdentityReference(alwaysAsId = true)
+    private List<TReponse> reponses;
+
 }

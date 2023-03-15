@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/images")
 public class CImages {
@@ -42,12 +43,12 @@ public class CImages {
     }
 
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TImages> update(@Validated @RequestBody TImages images){
         return new ResponseEntity<>(rImages.save(images), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @DeleteMapping()
     public void delete(@Validated @RequestBody TImages images) {
         rImages.deleteById(images.getId());
     }

@@ -44,12 +44,12 @@ public class CCity {
     }
 
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TCity> update(@Validated @RequestBody TCity city){
         return new ResponseEntity<>(rCity.save(city), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @DeleteMapping()
     public void delete(@Validated @RequestBody TCity city){
         rCity.deleteById(city.getId());
     }

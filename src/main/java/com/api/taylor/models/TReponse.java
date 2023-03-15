@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
@@ -18,24 +17,31 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "images")
+@Table(name = "reponse")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class TImages implements Serializable {
+public class TReponse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    private String link;
+    @Column(name = "dateOffre", columnDefinition = "timestamp")
+    private Date dateOffre;
+
+    private Double prixOffre;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIdentityReference(alwaysAsId = true)
-    @JoinColumn (name = "demande_fk",referencedColumnName = "id")
+    @JoinColumn(name = "demande_fk", referencedColumnName = "id")
     private TDemandes demande;
 
-//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @JsonIdentityReference(alwaysAsId = true)
-//    @JoinColumn (name = "user_fk",referencedColumnName = "id")
-//    private TUsers user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name = "user_fk", referencedColumnName = "id")
+    private TUsers user;
+
+
 }

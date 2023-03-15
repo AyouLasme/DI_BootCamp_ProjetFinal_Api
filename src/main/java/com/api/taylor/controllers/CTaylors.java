@@ -41,12 +41,12 @@ public class CTaylors {
         return rTaylors.save(taylors);
     }
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TTaylors> update(@Validated @RequestBody TTaylors taylors){
         return new ResponseEntity<>(rTaylors.save(taylors), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @DeleteMapping()
     public void delete(@Validated @RequestBody TTaylors taylors){
         rTaylors.deleteById(taylors.getId());
     }

@@ -44,12 +44,12 @@ public class CCompetencies {
     }
 
 
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TCompetencies> update(@Validated @RequestBody TCompetencies competencies){
         return new ResponseEntity<>(rCompetencies.save(competencies), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @DeleteMapping()
     public void delete(@Validated @RequestBody TCompetencies competencies){
         rCompetencies.deleteById(competencies.getId());
     }

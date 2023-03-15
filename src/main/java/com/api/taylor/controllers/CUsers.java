@@ -82,13 +82,12 @@ public class CUsers {
         }
     }
 
-
-    @DeleteMapping()
+    @PutMapping()
     public ResponseEntity<TUsers> update(@Validated @RequestBody TUsers users){
         return new ResponseEntity<>(rUsers.save(users), HttpStatus.CREATED);
     }
 
-    @PutMapping()
+    @DeleteMapping()
     public void delete(@Validated @RequestBody TUsers users){
         rUsers.deleteById(users.getId());
     }
