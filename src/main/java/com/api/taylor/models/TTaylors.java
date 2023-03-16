@@ -1,5 +1,6 @@
 package com.api.taylor.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -37,6 +38,7 @@ public class TTaylors extends TUsers {
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
 //    @JsonIdentityReference(alwaysAsId = true)
+    @JsonBackReference
     private List<TDemandes> receivedDemandes;
 
 
