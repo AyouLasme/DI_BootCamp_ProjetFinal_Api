@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 
 import java.io.Serializable;
@@ -36,20 +36,19 @@ public class TDemandes implements Serializable {
     private String object;
 
     /*
-    * les valeus possibles du statut: Annonce, Traitement, Terminé, Annulé
-    * */
+     * les valeus possibles du statut: Annonce, Traitement, Terminé, Annulé
+     * */
     private String statut;
 
     @Column(name = "content", columnDefinition = "text")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "sender_fk", referencedColumnName = "id")
     private TCustomers sender;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "receiver_fk", referencedColumnName = "id")
     @Nullable
     private TTaylors receiver;
@@ -57,22 +56,24 @@ public class TDemandes implements Serializable {
     @Column(name = "category")
     private String category;
 
-    @ManyToOne( optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "municipality_fk", referencedColumnName = "id")
     private TMunicipality municipality;
 
 
     /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TImages
-    une demande peut avoir une ou plusieurs images*/
+   une demande peut avoir une ou plusieurs images*/
     @OneToMany(mappedBy = "demande", cascade = CascadeType.ALL)
     @JsonIdentityReference(alwaysAsId = true)
     private List<TImages> images;
-
-
 
     /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TReponse
     une demande peut avoir une ou plusieurs reponses*/
     @OneToMany(mappedBy = "demande", cascade = CascadeType.ALL)
     @JsonIdentityReference(alwaysAsId = true)
     private List<TReponse> reponses;
+
 }
+
+
+

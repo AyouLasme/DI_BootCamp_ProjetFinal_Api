@@ -1,8 +1,8 @@
 package com.api.taylor.controllers;
 
 import com.api.taylor.models.*;
+import com.api.taylor.repository.RCustomers;
 import com.api.taylor.repository.RDemandes;
-import com.api.taylor.repository.RImages;
 import com.api.taylor.repository.RUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +19,10 @@ public class CDemandes {
 
     @Autowired
     private RDemandes rDemandes;
-    @Autowired
-    private RImages rImages;
 
     @Autowired
     private RUsers rUsers;
+
 
     @GetMapping()
     public List<TDemandes> findAll() {
@@ -45,13 +44,28 @@ public class CDemandes {
 
     @PostMapping()
     public TDemandes save(@Validated @RequestBody TDemandes demandes) {
-        return rDemandes.save(demandes);
+       return rDemandes.save(demandes);
     }
 
 
     @PutMapping()
-    public ResponseEntity<TDemandes> update(@Validated @RequestBody TDemandes demandes){
-        return new ResponseEntity<>(rDemandes.save(demandes), HttpStatus.CREATED);
+    public ResponseEntity<?> update(@Validated @RequestBody TDemandes demandes){
+        Optional<TDemandes> check = rDemandes.findById(demandes.getId());
+        if(check.isEmpty()){
+            return new ResponseEntity<>("Current demande not found", HttpStatus.NOT_FOUND);
+        }else{
+            check.get().setContent(demandes.getContent());
+            check.get().setCategory(demandes.getCategory());
+            check.get().setImages(demandes.getImages());
+            check.get().setObject(demandes.getObject());
+            check.get().setMunicipality(demandes.getMunicipality());
+            check.get().setContent(demandes.getContent());
+            check.get().setDateDmd(demandes.getDateDmd());
+            check.get().setDateRetrait(demandes.getDateRetrait());
+            rDemandes.save(check.get());
+
+            return new ResponseEntity<>("Data is updated", HttpStatus.OK);
+        }
     }
 
     @DeleteMapping()

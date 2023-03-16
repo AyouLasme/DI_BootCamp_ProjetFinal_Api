@@ -19,7 +19,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "images")
-@JsonIdentityInfo(scope = TImages.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TImages implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -41,5 +41,4 @@ public class TCompetencies implements Serializable {
             inverseJoinColumns = @JoinColumn( name = "user_fk" ) )
     private List<TTaylors> taylors;
 
-
 }

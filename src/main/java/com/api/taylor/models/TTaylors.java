@@ -3,6 +3,7 @@ package com.api.taylor.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class TTaylors extends TUsers {
     private boolean isAvailable = true;
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityReference(alwaysAsId = true)
     private List<TDemandes> receivedDemandes;
 
 

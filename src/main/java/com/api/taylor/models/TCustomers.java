@@ -28,8 +28,4 @@ public class TCustomers extends TUsers {
     @JsonIdentityReference(alwaysAsId = true)
     private List<TDemandes> sentDemandes;
 
-
-
-
-
 }
