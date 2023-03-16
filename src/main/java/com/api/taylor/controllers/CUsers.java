@@ -1,6 +1,9 @@
 package com.api.taylor.controllers;
 
 import com.api.taylor.models.*;
+import com.api.taylor.modules.Module;
+import com.api.taylor.repository.RCustomers;
+import com.api.taylor.repository.RTaylors;
 import com.api.taylor.repository.RUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TimerTask;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/users")
 public class CUsers {
 
+    @Autowired
+    private RCustomers rCostomers;
+    @Autowired
+    private RTaylors rTaylors;
     @Autowired
     private RUsers rUsers;
 
@@ -40,46 +48,24 @@ public class CUsers {
 
     @PostMapping("login")
     public ResponseEntity<TUsers> login(@RequestBody @Validated TLoginPayLoad loginPayLoad) {
-        System.out.println(loginPayLoad);
-        Optional<TUsers> users = rUsers.findByEmailAndPassword(loginPayLoad.getEmail(), loginPayLoad.getPassword());
-
-        if(users.isPresent()) {
-            return ResponseEntity.ok().body(users.get());
-        } else {
+        Optional<TUsers> user = rUsers.findByEmailAndPassword(loginPayLoad.getEmail(), loginPayLoad.getPassword() );
+        if(user.isPresent()){
+            return ResponseEntity.ok().body(user.get());
+        }else {
             return ResponseEntity.notFound().build();
         }
     }
 
 
-    @PostMapping("register")
-    public ResponseEntity<TUsers> register(@RequestBody @Validated TRegisterPayLoad registerPayLoad) {
-        System.out.println(registerPayLoad);
-        TUsers user = new TUsers();
-        user.setLastname(registerPayLoad.getLastname());
-        user.setFirstname(registerPayLoad.getFirstname());
-        user.setEmail(registerPayLoad.getEmail());
-        user.setAdresse(registerPayLoad.getAdresse());
-        user.setTel(registerPayLoad.getTel());
-        user.setSexe(registerPayLoad.getSexe());
-        user.setRole(registerPayLoad.getRole());
-        user.setPassword(registerPayLoad.getPassword());
-
-        rUsers.save(user);
-
-        return ResponseEntity.ok().body(user);
-    }
-
-
 
     @PostMapping()
-    public String save(@Validated @RequestBody TUsers tUser) {
-        try {
-            rUsers.save(tUser);
-            return "ok";
-        }
-        catch (Exception e){
-            return e.getMessage();
-        }
+    public TUsers save(@Validated @RequestBody TUsers tUser) {
+        //Crypter le mot de passe
+        String  pwd = tUser.getPassword() ;
+        tUser.setPassword(Module.hashPassword(pwd));
+
+        //savegarder
+        return rUsers.save(tUser)  ;
     }
 
     @PutMapping()
@@ -88,7 +74,8 @@ public class CUsers {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TUsers users){
+    public String delete(@Validated @RequestBody TUsers users){
         rUsers.deleteById(users.getId());
+        return "Ok" ;
     }
 }

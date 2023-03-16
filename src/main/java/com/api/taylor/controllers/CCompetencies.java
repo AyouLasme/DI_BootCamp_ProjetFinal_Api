@@ -50,7 +50,8 @@ public class CCompetencies {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TCompetencies competencies){
+    public String delete(@Validated @RequestBody TCompetencies competencies){
         rCompetencies.deleteById(competencies.getId());
+        return "OK" ;
     }
 }

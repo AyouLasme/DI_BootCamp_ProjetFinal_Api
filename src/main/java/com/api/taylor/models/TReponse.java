@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
@@ -18,8 +19,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "reponse")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class TReponse {
+@JsonIdentityInfo(scope = TReponse.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class TReponse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
@@ -30,18 +31,14 @@ public class TReponse {
     private Double prixOffre;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne()
     @JoinColumn(name = "demande_fk", referencedColumnName = "id")
     private TDemandes demande;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonIdentityReference(alwaysAsId = true)
-    @JoinColumn(name = "user_fk", referencedColumnName = "id")
-    private TUsers user;
+    @ManyToOne()
+    @JoinColumn(name = "taylor_fk", referencedColumnName = "id")
+    private TTaylors taylor;
 
 
 }

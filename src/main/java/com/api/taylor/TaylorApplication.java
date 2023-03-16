@@ -21,7 +21,6 @@ public class TaylorApplication {
 
 	public static void main(String[] args) throws ParseException {
 		SpringApplication.run(TaylorApplication.class, args);
-
 	}
 
 

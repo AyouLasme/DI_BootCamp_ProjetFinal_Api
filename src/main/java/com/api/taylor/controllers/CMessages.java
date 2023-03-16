@@ -49,7 +49,8 @@ public class CMessages {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TMessages messages) {
+    public String delete(@Validated @RequestBody TMessages messages) {
         rMessages.deleteById(messages.getId());
+        return  "Ok" ;
     }
 }

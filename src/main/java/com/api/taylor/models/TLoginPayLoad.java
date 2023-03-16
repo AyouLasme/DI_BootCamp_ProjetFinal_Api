@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TLoginPayLoad.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TLoginPayLoad {
     private long id;
     private String email;

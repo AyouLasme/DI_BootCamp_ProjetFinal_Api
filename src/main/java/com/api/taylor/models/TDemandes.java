@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name = "demandes")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TDemandes.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TDemandes implements Serializable {
     @Id
     @Basic(optional = false)
@@ -43,26 +44,22 @@ public class TDemandes implements Serializable {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "sender_fk", referencedColumnName = "id")
-    private TUsers sender;
+    private TCustomers sender;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name = "receiver_fk", referencedColumnName = "id")
+    @Nullable
+    private TTaylors receiver;
 
     @Column(name = "category")
     private String category;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "municipality_fk", referencedColumnName = "id")
     private TMunicipality municipality;
-
-
-//    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @JsonIdentityReference(alwaysAsId = true)
-//    @JoinColumn(name = "reveiver_fk", referencedColumnName = "id")
-//    private TUsers receiver;
 
 
     /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TImages

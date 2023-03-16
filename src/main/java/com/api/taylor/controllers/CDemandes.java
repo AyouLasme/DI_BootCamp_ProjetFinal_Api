@@ -42,45 +42,10 @@ public class CDemandes {
         }
     }
 
+
     @PostMapping()
-    public String save(@Validated @RequestBody TDemandes demandes) {
-        //return rDemandes.save(demandes);
-        try {
-            rDemandes.save(demandes);
-            return "ok";
-        }
-        catch (Exception e){
-            return e.getMessage();
-        }
-//        System.out.println(demandes);
-//        TMunicipality municipality = new TMunicipality();
-//        municipality.setId(demandes.getMunicipality_id());
-//        Optional<TUsers> sender = rUsers.findById(demandes.getSender_id());
-//        TDemandes tDemandes=null;
-//        if(sender.isPresent()){
-//         tDemandes = TDemandes.builder()
-//                .dateDmd(demandes.getDateDmd())
-//                .dateRetrait(demandes.getDateRetrait())
-//                .content(demandes.getContent())
-//                .municipality(municipality)
-//                .sender(sender.get())
-//                .object(demandes.getObject())
-//                .category(demandes.getCategory())
-//                .build();
-//        }
-//            System.out.println(tDemandes);
-//
-//
-//        rDemandes.save(tDemandes);
-//
-//        for (String image:demandes.getImageModele()) {
-//            TImages tImages = new TImages();
-//            tImages.setDemande(tDemandes);
-//            tImages.setLink(image);
-//            rImages.save(tImages);
-//        }
-//
-//        return tDemandes;
+    public TDemandes save(@Validated @RequestBody TDemandes demandes) {
+        return rDemandes.save(demandes);
     }
 
 
@@ -90,7 +55,8 @@ public class CDemandes {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TDemandes demandes){
+    public String delete(@Validated @RequestBody TDemandes demandes){
         rDemandes.deleteById(demandes.getId());
+        return "Ok" ;
     }
 }

@@ -1,6 +1,7 @@
 package com.api.taylor.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "taylors")
-@DiscriminatorValue("taylor")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@DiscriminatorValue("Taylor")
+@JsonIdentityInfo(scope = TTaylors.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class TTaylors extends TUsers {
 
@@ -31,8 +32,24 @@ public class TTaylors extends TUsers {
     @Column(name = "galery", length = 60)
     private String galery;
 
-    private boolean isAvailable;
-    
+    private boolean isAvailable = true;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
+    private List<TDemandes> receivedDemandes;
+
+
+
+    @OneToMany(mappedBy = "taylor", cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
+    private List<TReponse> reponses ;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "competencies_users",
+            joinColumns = @JoinColumn( name = "user_fk" ),
+            inverseJoinColumns = @JoinColumn( name = "competency_fk" ) )
+    private List<TCompetencies> competencies;
 
 
 

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -19,8 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "cities")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class TCity {
+@JsonIdentityInfo(scope = TCity.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class TCity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,3 +37,4 @@ public class TCity {
      @JsonIdentityReference(alwaysAsId = true)
      private List<TMunicipality> municipalities;
 }
+

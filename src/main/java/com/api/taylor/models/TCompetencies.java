@@ -20,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "competencies")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TCompetencies.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TCompetencies implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +35,11 @@ public class TCompetencies implements Serializable {
        un tailleur peut avoir une ou plusieurs competences et une competences peut appartenir
          à un ou plusieurs tailleurs */
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinTable( name = "competencies_users",
             joinColumns = @JoinColumn( name = "competency_fk" ),
             inverseJoinColumns = @JoinColumn( name = "user_fk" ) )
-    private List<TUsers> taylors;
+    private List<TTaylors> taylors;
 
 
 }

@@ -1,6 +1,7 @@
 package com.api.taylor.controllers;
 
 import com.api.taylor.models.TTaylors;
+import com.api.taylor.modules.Module;
 import com.api.taylor.repository.RTaylors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,11 @@ public class CTaylors {
 
     @PostMapping()
     public TTaylors save(@Validated @RequestBody TTaylors taylors) {
+        //Crypter le mot de passe
+        String  pwd = taylors.getPassword() ;
+        //taylors.setPassword(Module.hashPassword(pwd));
+
+        //savegarder
         return rTaylors.save(taylors);
     }
 
@@ -47,7 +53,8 @@ public class CTaylors {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TTaylors taylors){
+    public String delete(@Validated @RequestBody TTaylors taylors){
         rTaylors.deleteById(taylors.getId());
+        return  "Ok" ;
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "municipalities")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TMunicipality.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TMunicipality implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +28,8 @@ public class TMunicipality implements Serializable {
     private String libelle;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn (name = "city_fk",referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private TCity city;
 
 
@@ -42,6 +41,7 @@ public class TMunicipality implements Serializable {
 
 
     @OneToMany(mappedBy = "municipality", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<TDemandes> demandes;
 
 }

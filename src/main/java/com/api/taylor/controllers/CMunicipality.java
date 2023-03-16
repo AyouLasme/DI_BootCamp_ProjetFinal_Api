@@ -47,8 +47,9 @@ public class CMunicipality {
     }
 
    @DeleteMapping()
-    public void delete(@Validated @RequestBody TMunicipality municipality){
+    public String delete(@Validated @RequestBody TMunicipality municipality){
         rMunicipality.deleteById(municipality.getId());
+        return "Ok" ;
     }
 
 }

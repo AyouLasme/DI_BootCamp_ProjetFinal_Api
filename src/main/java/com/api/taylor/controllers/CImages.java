@@ -39,7 +39,8 @@ public class CImages {
 
     @PostMapping()
     public TImages save(@Validated @RequestBody TImages images) {
-        return rImages.save(images);
+        return  rImages.save(images);
+
     }
 
 
@@ -49,7 +50,10 @@ public class CImages {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TImages images) {
+    public String delete(@Validated @RequestBody TImages images) {
         rImages.deleteById(images.getId());
+        return "Ok" ;
     }
+
+
 }

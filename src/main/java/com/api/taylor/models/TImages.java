@@ -19,7 +19,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "images")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TImages.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TImages implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +27,7 @@ public class TImages implements Serializable {
 
     private String link;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne()
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn (name = "demande_fk",referencedColumnName = "id")
     private TDemandes demande;

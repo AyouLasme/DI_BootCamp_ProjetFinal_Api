@@ -17,7 +17,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "messages")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TMessages.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TMessages implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +29,12 @@ public class TMessages implements Serializable {
     @Column(name = "dateMsg", columnDefinition = "timestamp")
     private Date dateMsg;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne()
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "reveiver_fk", referencedColumnName = "id")
     private TUsers sender;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne()
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "sender_fk", referencedColumnName = "id")
     private TUsers receiver;

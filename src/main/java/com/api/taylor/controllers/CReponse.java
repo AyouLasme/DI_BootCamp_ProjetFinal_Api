@@ -57,7 +57,8 @@ public class CReponse {
     }
 
     @DeleteMapping()
-    public void delete(@Validated @RequestBody TReponse reponse){
+    public String delete(@Validated @RequestBody TReponse reponse){
         rReponse.deleteById(reponse.getId());
+        return "Ok" ;
     }
 }

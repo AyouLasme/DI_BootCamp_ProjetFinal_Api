@@ -23,7 +23,7 @@ import java.util.List;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = TUsers.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TUsers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +41,10 @@ public class TUsers implements Serializable {
     @Column(name = "tel", length = 20 )
     protected  String tel;
 
-    @Column(name = "password", length = 10 )
+    @Column(name = "password", length = 100 )
     protected  String password;
 
-    @Column(name = "adresse", length = 20 )
+    @Column(name = "adresse", length = 100 )
     protected String adresse;
 
     @Column(name = "role", length = 10)
@@ -61,10 +61,8 @@ public class TUsers implements Serializable {
 
     // Relation unidirectionnelle entre TUsers et TMunicipality
     // un utilisateur peut appartenir a une et une seule commune
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn (name = "municipality_fk",referencedColumnName = "id")
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonIdentityReference(alwaysAsId = true)
     protected TMunicipality municipality;
 
 
@@ -82,34 +80,6 @@ public class TUsers implements Serializable {
     private List<TMessages> sentMessages;
 
 
-    /*jointure unidirectionnelle de  la classe TUsers avec  la classe TMessages
-   un utilisateur peut envoyer et ou recevoir un ou plusieurs messages*/
-//    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-//    @JsonIdentityReference(alwaysAsId = true)
-//    private List<TDemandes> receivedDemandes;
 
-
-
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
-    @JsonIdentityReference(alwaysAsId = true)
-    private List<TDemandes> sentDemandes;
-
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    @JsonIdentityReference(alwaysAsId = true)
-//    private List<TImages> images;
-
-
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable( name = "competencies_users",
-            joinColumns = @JoinColumn( name = "user_fk" ),
-            inverseJoinColumns = @JoinColumn( name = "competency_fk" ) )
-    private List<TCompetencies> competencies;
-
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIdentityReference(alwaysAsId = true)
-    private List<TReponse> reponses;
 
 }

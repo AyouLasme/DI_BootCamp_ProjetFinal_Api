@@ -1,6 +1,7 @@
 package com.api.taylor.controllers;
 
 import com.api.taylor.models.TCustomers;
+import com.api.taylor.modules.Module;
 import com.api.taylor.repository.RCustomers;
 import com.api.taylor.repository.RTaylors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ public class CCustomers {
     @GetMapping()
     public List<TCustomers> findAll() {
         return (List<TCustomers>) rCostomers.findAll();
-
     }
 
     @GetMapping("/{id}")
@@ -38,7 +38,12 @@ public class CCustomers {
 
     @PostMapping()
     public TCustomers save(@Validated @RequestBody TCustomers customers) {
+        //Crypter le mot de passe
+        String  pwd = customers.getPassword() ;
+        //customers.setPassword(Module.hashPassword(pwd));
+        //savegarder
         return rCostomers.save(customers);
+
     }
 
 
@@ -48,7 +53,8 @@ public class CCustomers {
     }
 
    @DeleteMapping()
-    public void delete(@Validated @RequestBody TCustomers customers){
+    public String delete(@Validated @RequestBody TCustomers customers){
         rCostomers.deleteById(customers.getId());
+        return  "Ok" ;
     }
 }
