@@ -18,6 +18,10 @@ import java.util.List;
 @Builder
 @Table(name = "demandes")
 @JsonIdentityInfo(scope = TDemandes.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@NamedQuery(name = "TDemandes.findByMunicipality", query = "SELECT d FROM TDemandes d WHERE d.municipality.id = ?1")
+@NamedQuery(name = "TDemandes.findBySender", query = "SELECT d FROM TDemandes d WHERE d.sender.id = ?1")
+@NamedQuery(name = "TDemandes.findByReceiver", query = "SELECT d FROM TDemandes d WHERE d.receiver.id = ?1")
+
 public class TDemandes implements Serializable {
     @Id
     @Basic(optional = false)

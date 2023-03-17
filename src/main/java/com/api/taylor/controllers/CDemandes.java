@@ -30,6 +30,25 @@ public class CDemandes {
 
     }
 
+
+    //Methode de recuperation des demandes en fonction de la municipalité
+    @GetMapping("/municipality/{id}")
+    public List<TDemandes> findByMunicipality(@PathVariable(value = "id") long id) {
+        return (List<TDemandes>) rDemandes.findByMunicipality(id);
+    }
+
+    //Methode de recuperation des demandes par le sender
+    @GetMapping("/sender/{id}")
+    public List<TDemandes> findBySender(@PathVariable(value = "id") long id) {
+        return (List<TDemandes>) rDemandes.findBySender(id);
+    }
+
+    //Methode de recuperation des demandes par le receveur
+    @GetMapping("/receiver/{id}")
+    public List<TDemandes> findByReceiver(@PathVariable(value = "id") long id) {
+        return (List<TDemandes>) rDemandes.findByReceiver(id);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TDemandes> findById(@PathVariable(value = "id") long id) {
         Optional<TDemandes> demandes = rDemandes.findById(id);
@@ -42,15 +61,18 @@ public class CDemandes {
     }
 
 
+
+
+
     @PostMapping()
     public TDemandes save(@Validated @RequestBody TDemandes demandes) {
        return rDemandes.save(demandes);
     }
 
 
-    @PutMapping()
-    public ResponseEntity<?> update(@Validated @RequestBody TDemandes demandes){
-        Optional<TDemandes> check = rDemandes.findById(demandes.getId());
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @Validated @RequestBody TDemandes demandes){
+        Optional<TDemandes> check = rDemandes.findById(id);
         if(check.isEmpty()){
             return new ResponseEntity<>("Current demande not found", HttpStatus.NOT_FOUND);
         }else{
@@ -68,9 +90,10 @@ public class CDemandes {
         }
     }
 
-    @DeleteMapping()
-    public String delete(@Validated @RequestBody TDemandes demandes){
-        rDemandes.deleteById(demandes.getId());
-        return "Ok" ;
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        rDemandes.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
