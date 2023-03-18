@@ -70,6 +70,11 @@ public class CDemandes {
     }
 
 
+    @PutMapping()
+    public ResponseEntity<TDemandes> update(@Validated @RequestBody TDemandes demandes){
+        return new ResponseEntity<>(rDemandes.save(demandes), HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @Validated @RequestBody TDemandes demandes){
         Optional<TDemandes> check = rDemandes.findById(id);

@@ -71,7 +71,6 @@ public class TDemandes implements Serializable {
     /*jointure unidirectionnelle de  la classe TDemandes avec  la classe TReponse
     une demande peut avoir une ou plusieurs reponses*/
     @OneToMany(mappedBy = "demande", cascade = CascadeType.ALL)
-    @JsonIdentityReference(alwaysAsId = true)
     private List<TReponse> reponses;
 
 }

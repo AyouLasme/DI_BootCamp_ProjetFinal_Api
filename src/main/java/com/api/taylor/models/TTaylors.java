@@ -43,9 +43,11 @@ public class TTaylors extends TUsers {
 
 
 
-    @OneToMany(mappedBy = "taylor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     @JsonIdentityReference(alwaysAsId = true)
     private List<TReponse> reponses ;
+
+
 
 
     @ManyToMany(fetch = FetchType.LAZY)

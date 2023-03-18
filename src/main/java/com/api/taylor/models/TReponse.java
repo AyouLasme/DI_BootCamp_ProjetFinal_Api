@@ -28,7 +28,7 @@ public class TReponse implements Serializable {
     @Column(name = "dateOffre", columnDefinition = "timestamp")
     private Date dateOffre;
 
-    private Double prixOffre;
+    private double prixOffre;
 
 
     @ManyToOne()
@@ -37,8 +37,9 @@ public class TReponse implements Serializable {
 
 
     @ManyToOne()
-    @JoinColumn(name = "taylor_fk", referencedColumnName = "id")
-    private TTaylors taylor;
+    @JoinColumn(name = "sender_fk", referencedColumnName = "id")
+    private TTaylors sender;
+
 
 
 }
