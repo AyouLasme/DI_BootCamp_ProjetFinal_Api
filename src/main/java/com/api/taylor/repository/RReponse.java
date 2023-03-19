@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface RReponse  extends CrudRepository<TReponse, Long> {
     public List<TReponse> findByDemande(long id);
+   public List<TReponse> findBySenderDemande(long demande_fk, long sender);
+
+
+
 }

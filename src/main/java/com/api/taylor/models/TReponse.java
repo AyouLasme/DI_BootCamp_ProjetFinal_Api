@@ -20,6 +20,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "reponse")
 @JsonIdentityInfo(scope = TReponse.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@NamedQuery(name = "TReponse.findBySenderDemande", query = "SELECT r FROM TReponse r WHERE r.demande.id=?1 AND r.sender.id=?2")
 public class TReponse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -73,6 +73,102 @@ public class TDemandes implements Serializable {
     @OneToMany(mappedBy = "demande", cascade = CascadeType.ALL)
     private List<TReponse> reponses;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getDateDmd() {
+        return dateDmd;
+    }
+
+    public void setDateDmd(Date dateDmd) {
+        this.dateDmd = dateDmd;
+    }
+
+    public Date getDateRetrait() {
+        return dateRetrait;
+    }
+
+    public void setDateRetrait(Date dateRetrait) {
+        this.dateRetrait = dateRetrait;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public TCustomers getSender() {
+        return sender;
+    }
+
+    public void setSender(TCustomers sender) {
+        this.sender = sender;
+    }
+
+    @Nullable
+    public TTaylors getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(@Nullable TTaylors receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public TMunicipality getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(TMunicipality municipality) {
+        this.municipality = municipality;
+    }
+
+    public List<TImages> getImages() {
+        return images;
+    }
+
+    public void setImages(List<TImages> images) {
+        this.images = images;
+    }
+
+    public List<TReponse> getReponses() {
+        return reponses;
+    }
+
+    public void setReponses(List<TReponse> reponses) {
+        this.reponses = reponses;
+    }
 }
 
 

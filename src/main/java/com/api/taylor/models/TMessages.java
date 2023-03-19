@@ -17,6 +17,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "messages")
+//@NamedQuery(name = "TMessages.findBySenderDemande", query = "SELECT r FROM TMessage r WHERE r.demande.id=?1 AND r.sender.id=?2")
 @JsonIdentityInfo(scope = TMessages.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class TMessages implements Serializable {
     @Id

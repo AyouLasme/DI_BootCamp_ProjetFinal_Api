@@ -1,7 +1,9 @@
 package com.api.taylor.controllers;
 
 import com.api.taylor.models.TCustomers;
+import com.api.taylor.models.TLoginPayLoad;
 import com.api.taylor.models.TReponse;
+import com.api.taylor.models.TUsers;
 import com.api.taylor.repository.RCustomers;
 import com.api.taylor.repository.RReponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,9 @@ public class CReponse {
     @GetMapping("/findByDemande/{id}")
     public List<TReponse> findByDemande(@PathVariable(value = "id") long id) {
         return (List<TReponse>) rReponse.findByDemande(id);
-
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<TReponse> findById(@PathVariable(value = "id") long id) {
@@ -44,6 +47,13 @@ public class CReponse {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    @GetMapping("/{demande_id}/{sender_id}")
+    public List<TReponse> findBySenderDemande(@PathVariable(value = "demande_id") long demande_fk,@PathVariable(value = "sender_id") long sender_fk) {
+        return (List<TReponse>) rReponse.findBySenderDemande(demande_fk, sender_fk);
+    }
+
 
     @PostMapping()
     public TReponse save(@Validated @RequestBody TReponse reponse) {

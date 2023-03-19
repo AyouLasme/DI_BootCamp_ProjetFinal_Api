@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +22,8 @@ public class CMunicipality {
 
     @GetMapping()
     public List<TMunicipality> findAll() {
-        return (List<TMunicipality>) rMunicipality.findAll();
-
+        System.out.println("bonjour");
+       return (List<TMunicipality>) rMunicipality.findAll();
     }
 
     @GetMapping("/{id}")
